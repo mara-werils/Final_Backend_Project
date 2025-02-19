@@ -49,7 +49,7 @@ app.use(resourceRoutes);
 
 app.use(errorHandler);
 app.use((err, req, res, next) => {
-    console.error("❌ Ошибка сервера:", err.stack);
+    console.error("Ошибка сервера:", err.stack);
     res.status(500).json({ error: "Internal Server Error" });
 });
 
