@@ -13,7 +13,8 @@ if (!MONGO_URI) {
 mongoose
     .connect(MONGO_URI, { 
         useNewUrlParser: true, 
-        useUnifiedTopology: true 
+        useUnifiedTopology: true,
+        tlsAllowInvalidCertificates: true,
     })
     .then(() => {
         console.log("Успешное подключение к MongoDB Atlas");
