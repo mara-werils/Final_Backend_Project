@@ -23,19 +23,20 @@ app.use(methodOverride("_method"));
 
 app.use(
     session({
-        secret: process.env.SESSION_SECRET || "secret",
+        secret: process.env.SESSION_SECRET || "supersecret",
         resave: false,
         saveUninitialized: false,
-        store: MongoStore.create({
-            mongoUrl: process.env.MONGO_URI || "mongodb://localhost:27017/mydatabase",
-            crypto: {
-                secret: process.env.SESSION_SECRET || "secret"
-            }
+        store: MongoStore.create({ 
+            mongoUrl: process.env.MONGO_URI, 
+            collectionName: "sessions" 
         }),
-        cookie: { secure: false, httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }
+        cookie: { 
+            secure: process.env.NODE_ENV === "production", 
+            httpOnly: true, 
+            maxAge: 1000 * 60 * 60 * 24 // 1 день
+        }
     })
 );
-
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
