@@ -11,28 +11,27 @@
 <body>
 
   <nav class="navbar">
-    <a href="/" class="nav-link">🏠 Главная</a>
-    <a href="/dashboard" class="nav-link">👤 Личный кабинет</a>
-    <button id="logoutButton" class="logout-btn">🚪 Выйти</button>
+    <a href="/" class="nav-link">Главная</a>
+    <a href="/dashboard" class="nav-link">Личный кабинет</a>
+    <button id="logoutButton" class="logout-btn">Выйти</button>
   </nav>
 
   <div class="container">
     <h2 id="welcomeMessage">Личный кабинет</h2>
 
-    <!-- Панель администратора -->
     <div id="adminPanel" style="display: none; background: #ffeb3b; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-        <h3>⚡ Панель администратора</h3>
+        <h3>Панель администратора</h3>
         <p>Вы можете управлять задачами всех пользователей.</p>
     </div>
 
-    <h3>📌 Мои задачи</h3>
+    <h3>Мои задачи</h3>
 
     <ul id="taskList" class="task-list"></ul>
 
     <form id="taskForm" class="task-form">
       <input type="text" id="taskTitle" placeholder="Название задачи" required>
       <input type="date" id="taskDueDate" required>
-      <button type="submit">➕ Добавить</button>
+      <button type="submit">Добавить</button>
     </form>
   </div>
   
@@ -64,7 +63,7 @@
           }
 
           const user = await response.json();
-          console.log("✅ Пользователь авторизован:", user);
+          console.log("Пользователь авторизован:", user);
           welcomeMessage.innerText = `Добро пожаловать, ${user.username} (${user.role})!`;
 
           if (user.role === "admin") {
@@ -89,7 +88,7 @@
           }
 
           const tasks = await response.json();
-          console.log("✅ Задачи загружены:", tasks);
+          console.log("Задачи загружены:", tasks);
           taskList.innerHTML = "";
 
           tasks.forEach(task => {
@@ -199,7 +198,7 @@
             throw new Error("Ошибка обновления статуса задачи");
           }
 
-          console.log(`✅ Статус задачи ${taskId} обновлен: ${status}`);
+          console.log(`Статус задачи ${taskId} обновлен: ${status}`);
         } catch (error) {
           console.error("Ошибка обновления статуса задачи:", error);
           alert(error.message);

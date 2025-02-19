@@ -1,6 +1,5 @@
 const Resource = require("../models/Resource");
 
-// 📌 Создание нового ресурса (задачи)
 exports.createResource = async (req, res) => {
     try {
         const { title, dueDate } = req.body;
@@ -32,12 +31,10 @@ exports.createResource = async (req, res) => {
     }
 };
 
-// 📌 Получение всех ресурсов (с учетом ролей)
 exports.getResources = async (req, res) => {
     try {
         let query = {};
 
-        // ✅ Админ получает все задачи, пользователь — только свои
         if (req.user.role !== "admin") {
             query.user = req.user.id;
         }
@@ -50,7 +47,6 @@ exports.getResources = async (req, res) => {
     }
 };
 
-// 📌 Получение ресурса по ID (учет ролей)
 exports.getResourceById = async (req, res) => {
     try {
         const resource = await Resource.findById(req.params.id).populate("user", "username email");
@@ -59,7 +55,6 @@ exports.getResourceById = async (req, res) => {
             return res.status(404).json({ error: "Ресурс не найден" });
         }
 
-        // ✅ Только админ или владелец могут просматривать задачу
         if (req.user.role !== "admin" && resource.user._id.toString() !== req.user.id) {
             return res.status(403).json({ error: "Доступ запрещен" });
         }
@@ -71,7 +66,6 @@ exports.getResourceById = async (req, res) => {
     }
 };
 
-// 📌 Обновление ресурса (только админ или владелец)
 exports.updateResource = async (req, res) => {
     try {
         const { title, status, dueDate } = req.body;
@@ -100,7 +94,6 @@ exports.updateResource = async (req, res) => {
             return res.status(404).json({ error: "Ресурс не найден" });
         }
 
-        // ✅ Только админ или владелец могут обновлять задачу
         if (req.user.role !== "admin" && updatedResource.user.toString() !== req.user.id) {
             return res.status(403).json({ error: "Доступ запрещен" });
         }
@@ -118,7 +111,6 @@ exports.updateResource = async (req, res) => {
     }
 };
 
-// 📌 Удаление ресурса (только админ или владелец)
 exports.deleteResource = async (req, res) => {
     try {
         const resource = await Resource.findById(req.params.id);
@@ -127,7 +119,6 @@ exports.deleteResource = async (req, res) => {
             return res.status(404).json({ error: "Ресурс не найден" });
         }
 
-        // ✅ Админ может удалить любую задачу, пользователь — только свою
         if (req.user.role !== "admin" && resource.user.toString() !== req.user.id) {
             return res.status(403).json({ error: "Доступ запрещен" });
         }

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const user = await response.json();
             currentUser = user;
-            console.log("✅ Авторизованный пользователь:", user);
+            console.log("Авторизованный пользователь:", user);
 
             welcomeMessage.innerText = `Добро пожаловать, ${user.username} (${user.role})!`;
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 adminPanel.style.display = "block";
             }
         } catch (error) {
-            console.error("❌ Ошибка авторизации:", error);
+            console.error("Ошибка авторизации:", error);
             alert(error.message);
             logout();
         }
@@ -49,11 +49,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!response.ok) throw new Error("Ошибка при загрузке задач");
     
             const tasks = await response.json();
-            console.log("✅ Загружены задачи:", tasks);
+            console.log("Загружены задачи:", tasks);
     
             taskList.innerHTML = "";
     
-            // 📌 Группируем задачи по пользователю
             const groupedTasks = {};
             tasks.forEach(task => {
                 const ownerName = task.user && task.user.username ? task.user.username : "Неизвестный пользователь";
@@ -63,7 +62,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 groupedTasks[ownerName].push(task);
             });
     
-            // 📌 Отображаем задачи по пользователям
             Object.keys(groupedTasks).forEach(ownerName => {
                 const userSection = document.createElement("div");
                 userSection.classList.add("user-task-section");
@@ -118,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
     
         } catch (error) {
-            console.error("❌ Ошибка загрузки задач:", error);
+            console.error("Ошибка загрузки задач:", error);
             alert(error.message);
         }
     }
@@ -169,7 +167,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 throw new Error("Ошибка обновления статуса задачи");
             }
 
-            console.log(`✅ Статус задачи ${taskId} обновлен: ${status}`);
+            console.log(`Статус задачи ${taskId} обновлен: ${status}`);
         } catch (error) {
             console.error("Ошибка обновления статуса задачи:", error);
             alert(error.message);
