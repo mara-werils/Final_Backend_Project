@@ -1,7 +1,3 @@
-### **📌 Full `README.md` for Your Project**
-Copy and paste this into your `README.md` file.
-
-```markdown
 # Task Manager API
 
 ## Overview
