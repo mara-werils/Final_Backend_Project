@@ -1,0 +1,14 @@
+<% layout('layout') -%>
+<% var title = "Профиль" %>
+
+<h2>Профиль</h2>
+<p>Имя: <%= user.username %></p>
+<p>Email: <%= user.email %></p>
+
+<form id="updateProfileForm">
+    <input type="text" id="username" value="<%= user.username %>" required>
+    <input type="email" id="email" value="<%= user.email %>" required>
+    <button type="submit">Обновить</button>
+</form>
+
+<script src="/js/profile.js"></script>
