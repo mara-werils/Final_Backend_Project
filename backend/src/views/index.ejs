@@ -1,36 +1,33 @@
-<!DOCTYPE html>
-<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body>
-    <div class="container">
-        <h1>Добро пожаловать!</h1>
-        <p id="authLinks">
-            <a href="/register">Регистрация</a> | 
-            <a href="/login">Вход</a>
-        </p>
-    </div>
+<main class="home">
+  <div class="container">
+    <h1>Добро пожаловать!</h1>
+    <p id="authLinks">
+      <a href="/register" class="btn">Регистрация</a>
+      <a href="/login" class="btn btn-secondary">Вход</a>
+    </p>
+  </div>
+</main>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const token = localStorage.getItem("token");
-            if (token) {
-                document.querySelector("#authLinks").innerHTML = `
-                    <a href="/dashboard">Личный кабинет</a> |
-                    <a href="/logout" id="logoutButton">Выход</a>
-                `;
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      document.querySelector("#authLinks").innerHTML = `
+                <a href="/dashboard" class="btn">Личный кабинет</a>
+                <a href="/logout" id="logoutButton" class="btn btn-danger">Выход</a>
+            `;
 
-                document.querySelector("#logoutButton").addEventListener("click", () => {
-                    localStorage.removeItem("token");
-                    alert("Вы вышли из системы");
-                    window.location.href = "/";
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+      document.querySelector("#logoutButton").addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        alert("Вы вышли из системы");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 500);
+      });
+    }
+  });
+</script>
